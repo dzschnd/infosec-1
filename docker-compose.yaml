@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: infosec-1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 6543:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d infosec-1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/infosec-1
+      JWT_SECRET: efa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e
+    ports:
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
