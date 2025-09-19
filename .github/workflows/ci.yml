@@ -36,8 +36,8 @@ jobs:
       - name: Upload npm audit report
         uses: actions/upload-artifact@v4
         with:
-        name: npm-audit-report
-        path: reports/npm-audit.html
+          name: npm-audit-report
+          path: reports/npm-audit.html
 
       - name: Upload OWASP report
         uses: actions/upload-artifact@v4
