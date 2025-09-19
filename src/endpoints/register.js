@@ -22,11 +22,15 @@ export const register = async (req, res) => {
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  await db.user.create({
-    data: { username: username, password: hashedPassword },
-  });
-
-  res.json({
-    success: true,
-  });
+  try {
+    await db.user.create({
+      data: { username: username, password: hashedPassword },
+    });
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to register" });
+  }
 };

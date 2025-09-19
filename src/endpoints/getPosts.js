@@ -6,7 +6,7 @@ export const getPosts = async (req, res) => {
     const posts = await db.post.findMany();
     res.json({
       posts: posts,
-      requestFrom: validator.escape(req.username),
+      requestedBy: validator.escape(req.username),
     });
   } catch (err) {
     console.error(err);
