@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Run npm audit
-        run: npm audit --json | npx npm-audit-html > reports/npm-audit.html
+        run: mkdir -p reports && npm audit --json | npx npm-audit-html > reports/npm-audit.html
 
       - name: Run OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
